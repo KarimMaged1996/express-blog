@@ -1,0 +1,30 @@
+{
+  "name": "express-blog",
+  "version": "1.0.0",
+  "main": "app.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node-dev -r tsconfig-paths/register --respawn src/app.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KarimMaged1996/express-blog.git"
+  },
+  "author": "Karim Maged",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KarimMaged1996/express-blog/issues"
+  },
+  "homepage": "https://github.com/KarimMaged1996/express-blog#readme",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.8.2"
+  }
+}
