@@ -4,7 +4,8 @@
   "main": "app.ts",
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node-dev -r tsconfig-paths/register --respawn src/app.ts"
+    "dev": "ts-node-dev -r tsconfig-paths/register --respawn src/app.ts",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -24,6 +25,12 @@
   },
   "devDependencies": {
     "@types/express": "^5.0.1",
+    "@typescript-eslint/eslint-plugin": "^8.28.0",
+    "@typescript-eslint/parser": "^8.28.0",
+    "eslint": "^9.23.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
+    "prettier": "^3.5.3",
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.8.2"
