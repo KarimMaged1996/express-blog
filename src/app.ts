@@ -1,10 +1,7 @@
 import express from "express";
-import dotenv from "dotenv";
 import connectDb from "./db";
 import errorHandler from "./error";
-
-// Initialize .env
-dotenv.config();
+import config from "./config";
 
 const app = express();
 
@@ -17,7 +14,7 @@ connectDb();
 // use global error handler
 app.use(errorHandler);
 
-const PORT = process.env.PORT;
+const PORT = config.PORT;
 
 app.listen(PORT, () =>
   // eslint-disable-next-line

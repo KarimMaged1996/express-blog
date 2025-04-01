@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import config from "./config";
 
 const connectDb = async () => {
   try {
-    const connectionStr = process.env.DB_CONNECTION_STR;
+    const connectionStr = config.DATABASE_CONNECTION_STR;
 
     if (!connectionStr) {
       throw new Error(
@@ -11,9 +12,9 @@ const connectDb = async () => {
     }
 
     await mongoose.connect(connectionStr);
-    console.log("Database connected successfully");
+    console.info("Database connected successfully");
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
