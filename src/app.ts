@@ -3,6 +3,10 @@ import connectDb from "./db";
 import errorHandler from "./error";
 import config from "./config";
 import initializeDocs from "./swagger";
+import ROUTES from "./app_routes";
+
+// Import routers
+import authRouter from "./users/routes";
 
 const app = express();
 
@@ -14,6 +18,9 @@ connectDb();
 
 // Initialize docs
 initializeDocs(app);
+
+// use routers
+app.use(ROUTES.AUTH.BASE, authRouter);
 
 // use global error handler
 app.use(errorHandler);
