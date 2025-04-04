@@ -2,6 +2,7 @@ import express from "express";
 import connectDb from "./db";
 import errorHandler from "./error";
 import config from "./config";
+import initializeDocs from "./swagger";
 
 const app = express();
 
@@ -10,6 +11,9 @@ app.use(express.json());
 
 // connect to database
 connectDb();
+
+// Initialize docs
+initializeDocs(app);
 
 // use global error handler
 app.use(errorHandler);
