@@ -8,7 +8,7 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true,
   auth: {
-    user: "kmaged2024@gmail.com",
+    user: config.GMAIL_ACCOUNT,
     pass: config.GMAIL_PASSWORD,
   },
 });
@@ -20,7 +20,7 @@ export const sendMail = async (details: {
 }) => {
   try {
     await transporter.sendMail({
-      from: "kmaged2024@gmail.com",
+      from: config.GMAIL_ACCOUNT,
       ...details,
     });
   } catch (err) {
