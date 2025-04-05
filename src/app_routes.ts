@@ -3,6 +3,7 @@ const ROUTES = {
     BASE: "/auth",
     ROUTES: {
       REGISTER: "/register",
+      ACTIVATE: "/activate",
     },
   },
 };

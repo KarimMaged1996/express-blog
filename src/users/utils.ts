@@ -7,7 +7,7 @@ import { registrationRequestType } from "./schemas";
 // Import utils
 import { hashPassword } from "../utils/bcrypt";
 
-export const checkUserExists = async (email: string) => {
+export const checkEmailExists = async (email: string) => {
   const user = await User.findOne({ email });
 
   if (!user) {
@@ -24,5 +24,10 @@ export const createUser = async (userdata: registrationRequestType) => {
 
   const user = new User({ ...rest, password: hashedPass });
   await user.save();
+  return user;
+};
+
+export const getUserById = async (id: string) => {
+  const user = await User.findById(id);
   return user;
 };

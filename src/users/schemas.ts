@@ -18,3 +18,10 @@ export const registrationValidation = z.object({
 });
 
 export type registrationRequestType = z.infer<typeof registrationValidation>;
+
+// activation
+export const activationValidation = z.object({
+  id: z.string({ required_error: "Id is required" }),
+});
+
+export type activationRequestType = z.infer<typeof activationValidation>;

@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 
 // Import schemas
-import { registrationRequestType } from "./schemas";
+import { registrationRequestType, activationRequestType } from "./schemas";
 
 // Import utils
-import { checkUserExists, createUser } from "./utils";
+import { checkEmailExists, createUser, getUserById } from "./utils";
 
 export const register = async (
   req: Request<{}, {}, registrationRequestType>,
@@ -12,16 +12,38 @@ export const register = async (
   next: NextFunction
 ) => {
   try {
-    const userExists = await checkUserExists(req.body.email);
+    const emailExists = await checkEmailExists(req.body.email);
 
-    if (userExists) {
-      res.status(400).json({ error: "This user already exists" });
+    if (emailExists) {
+      res.status(400).json({ error: "This email already exists" });
       return;
     }
 
     await createUser(req.body);
 
     res.status(201).json("user created successfully");
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const activateUser = async (
+  req: Request<{}, {}, activationRequestType>,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const user = await getUserById(req.body.id);
+
+    if (!user) {
+      res.status(400).json({ error: "User doesn't exist" });
+      return;
+    }
+
+    user.isActive = true;
+    await user.save();
+
+    res.json({ message: "User activated successfully" });
   } catch (err) {
     next(err);
   }
