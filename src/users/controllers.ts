@@ -1,5 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import ejs from "ejs";
+import config from "../config";
+import ROUTES from "../app_routes";
 
 // Import schemas
 import { registrationRequestType, activationRequestType } from "./schemas";
@@ -28,7 +30,7 @@ export const register = async (
       {
         name: user.username,
         id: user._id,
-        submitionPath: "http://localhost:8000/auth/activate",
+        submitionPath: `${config.SERVER_URL}${ROUTES.AUTH.BASE}${ROUTES.AUTH.ROUTES.ACTIVATE}`,
       }
     );
 
