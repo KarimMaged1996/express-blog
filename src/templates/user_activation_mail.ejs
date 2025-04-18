@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Email Activation</title>
+    <style>
+      input {
+        visibility: hidden;
+        position: absolute;
+      }
+      button {
+        padding: 10px;
+        color: white;
+        background-color: #0c7c1e;
+        border-radius: 16px;
+        font-weight: 600;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome <%= name %></h1>
+    <form method="post" action="<%= submitionPath %>">
+      <p>Please click the below link to activate your email</p>
+      <input type="text" value="<%= id %>" name="id" />
+      <button type="submit">Activate</button>
+    </form>
+  </body>
+</html>

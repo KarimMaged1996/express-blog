@@ -1,10 +1,12 @@
 import { Request, Response, NextFunction } from "express";
+import ejs from "ejs";
 
 // Import schemas
 import { registrationRequestType, activationRequestType } from "./schemas";
 
 // Import utils
 import { checkEmailExists, createUser, getUserById } from "./utils";
+import { sendMail } from "../utils/nodemailer";
 
 export const register = async (
   req: Request<{}, {}, registrationRequestType>,
@@ -19,7 +21,22 @@ export const register = async (
       return;
     }
 
-    await createUser(req.body);
+    const user = await createUser(req.body);
+
+    const html = await ejs.renderFile(
+      "src/templates/user_activation_mail.ejs",
+      {
+        name: user.username,
+        id: user._id,
+        submitionPath: "http://localhost:8000/auth/activate",
+      }
+    );
+
+    await sendMail({
+      to: user.email,
+      subject: "Email Activation",
+      html,
+    });
 
     res.status(201).json("user created successfully");
   } catch (err) {
@@ -43,7 +60,7 @@ export const activateUser = async (
     user.isActive = true;
     await user.save();
 
-    res.json({ message: "User activated successfully" });
+    res.send("<h1>User activated successfully<\h1>");
   } catch (err) {
     next(err);
   }
