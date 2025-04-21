@@ -8,6 +8,7 @@ export interface IUser extends Document {
   createdAt: Date;
   photo?: string;
   isActive: boolean;
+  refreshToken?: string;
 }
 
 // registration
@@ -25,3 +26,11 @@ export const activationValidation = z.object({
 });
 
 export type activationRequestType = z.infer<typeof activationValidation>;
+
+// login
+export const loginValidation = z.object({
+  email: z.string({ required_error: "email is required" }),
+  password: z.string({ required_error: "password is required" }),
+});
+
+export type loginRequestType = z.infer<typeof loginValidation>;

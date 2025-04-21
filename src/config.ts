@@ -9,6 +9,8 @@ const config = {
   GMAIL_ACCOUNT: process.env.GMAIL_ACCOUNT,
   GMAIL_PASSWORD: process.env.GMAIL_GENERATED_PASSWORD,
   SERVER_URL: process.env.SERVER_URL,
+  ACCESS_TOKEN_KEY: process.env.ACCESS_TOKEN_KEY,
+  REFRESH_TOKEN_KEY: process.env.REFRESH_TOKEN_KEY,
 };
 
 export default config;

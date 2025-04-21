@@ -4,6 +4,8 @@ const ROUTES = {
     ROUTES: {
       REGISTER: "/register",
       ACTIVATE: "/activate",
+      LOGIN: "/login",
+      LOGOUT: "/logout",
     },
   },
 };

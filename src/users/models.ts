@@ -10,6 +10,7 @@ const UserSchema = new Schema<IUser>({
   createdAt: { type: Date, required: true, default: new Date() },
   photo: String,
   isActive: { type: Boolean, required: true, default: false },
+  refreshToken: { type: String },
 });
 
 const User = model("User", UserSchema);
