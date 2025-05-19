@@ -6,6 +6,7 @@ const ROUTES = {
       ACTIVATE: "/activate",
       LOGIN: "/login",
       LOGOUT: "/logout",
+      REFRESH: "/refresh",
     },
   },
 };

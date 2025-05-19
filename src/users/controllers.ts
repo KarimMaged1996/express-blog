@@ -8,6 +8,7 @@ import {
   registrationRequestType,
   activationRequestType,
   loginRequestType,
+  refreshRequestType,
 } from "./schemas";
 
 // Import utils
@@ -16,10 +17,15 @@ import {
   createUser,
   getUserById,
   getUserByMail,
+  getUserByRefreshToken,
 } from "./utils";
 import { sendMail } from "../utils/nodemailer";
 import { comparePassword } from "../utils/bcrypt";
-import { generateAccessToken, generateRefreshToken } from "../utils/jwt";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+  verifyRefreshToken,
+} from "../utils/jwt";
 
 export const register = async (
   req: Request<{}, {}, registrationRequestType>,
@@ -116,6 +122,38 @@ export const login = async (
       accessToken,
       refreshToken,
     });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const refresh = async (
+  req: Request<{}, {}, refreshRequestType>,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { refreshToken } = req.body;
+    const user = await getUserByRefreshToken(refreshToken);
+
+    if (!user) {
+      res.status(400).json({ error: "Invalid Token" });
+      return;
+    }
+
+    const isRefreshValid = verifyRefreshToken(refreshToken);
+
+    if (!isRefreshValid) {
+      res.status(400).json({ error: "Invalid Token" });
+      return;
+    }
+
+    const accessToken = generateAccessToken({
+      email: user.email,
+      username: user.username,
+    });
+
+    res.json({ accessToken });
   } catch (err) {
     next(err);
   }

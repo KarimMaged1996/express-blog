@@ -9,10 +9,11 @@ import {
   registrationValidation,
   activationValidation,
   loginValidation,
+  refreshValidation,
 } from "./schemas";
 
 // import controllers
-import { register, activateUser, login } from "./controllers";
+import { register, activateUser, login, refresh } from "./controllers";
 
 const authRouter = Router();
 
@@ -27,5 +28,9 @@ authRouter
 authRouter
   .route(ROUTES.AUTH.ROUTES.LOGIN)
   .post(validate(loginValidation), login);
+
+authRouter
+  .route(ROUTES.AUTH.ROUTES.REFRESH)
+  .post(validate(refreshValidation), refresh);
 
 export default authRouter;

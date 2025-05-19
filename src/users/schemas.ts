@@ -34,3 +34,10 @@ export const loginValidation = z.object({
 });
 
 export type loginRequestType = z.infer<typeof loginValidation>;
+
+// refresh
+export const refreshValidation = z.object({
+  refreshToken: z.string({ required_error: "refresh_token is required" }),
+});
+
+export type refreshRequestType = z.infer<typeof refreshValidation>;
