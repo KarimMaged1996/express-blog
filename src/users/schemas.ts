@@ -41,3 +41,9 @@ export const refreshValidation = z.object({
 });
 
 export type refreshRequestType = z.infer<typeof refreshValidation>;
+
+// jwt
+export type JWTPayload = {
+  email: string;
+  username: string;
+};
