@@ -2,6 +2,7 @@ import { Document } from "mongoose";
 import z from "zod";
 
 export interface IUser extends Document {
+  _id: string;
   email: string;
   username: string;
   password: string;

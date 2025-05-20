@@ -7,6 +7,7 @@ import ROUTES from "./app_routes";
 
 // Import routers
 import authRouter from "./users/routes";
+import postsRouter from "./posts/routes";
 
 const app = express();
 
@@ -22,6 +23,7 @@ initializeDocs(app);
 
 // use routers
 app.use(ROUTES.AUTH.BASE, authRouter);
+app.use(ROUTES.POSTS.BASE, postsRouter);
 
 // use global error handler
 app.use(errorHandler);

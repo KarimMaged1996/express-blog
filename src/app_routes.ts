@@ -9,6 +9,12 @@ const ROUTES = {
       REFRESH: "/refresh",
     },
   },
+  POSTS: {
+    BASE: "/posts",
+    ROUTES: {
+      CREATE: "/create",
+    },
+  },
 };
 
 export default ROUTES;
