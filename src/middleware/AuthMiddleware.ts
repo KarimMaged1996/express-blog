@@ -4,9 +4,6 @@ import { Request, Response, NextFunction } from "express";
 import { verifyAccessToken } from "../utils/jwt";
 import { getUserByMail } from "../users/utils";
 
-// Import types
-import { IUser } from "../users/schemas";
-
 export const authMiddleware = async (
   req: Request,
   res: Response,
@@ -28,7 +25,7 @@ export const authMiddleware = async (
       return;
     }
 
-    const user = (await getUserByMail(decoded.email)) as IUser;
+    const user = (await getUserByMail(decoded.email)) as any;
     req.user = user;
     next();
   } catch (err) {
