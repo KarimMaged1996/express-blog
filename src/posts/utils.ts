@@ -9,3 +9,16 @@ export const createPostInstance = async (
   await post.save();
   return post;
 };
+
+export const getPostsCount = async () => {
+  return await Post.countDocuments();
+};
+
+export const getPosts = async (page: number, limit: number) => {
+  const skip = (page - 1) * limit;
+  const posts = await Post.find()
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit);
+  return posts;
+};

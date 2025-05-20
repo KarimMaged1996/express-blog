@@ -13,6 +13,7 @@ const ROUTES = {
     BASE: "/posts",
     ROUTES: {
       CREATE: "/create",
+      LIST: "/list",
     },
   },
 };

@@ -22,3 +22,12 @@ export const createPostValidation = z.object({
 });
 
 export type createPostRequestType = z.infer<typeof createPostValidation>;
+
+// get posts validation
+
+export const getPostsValidation = z.object({
+  page: z.string({ required_error: "page is required" }),
+  limit: z.string({ required_error: "limit is required" }),
+});
+
+export type postsListRequestType = z.infer<typeof getPostsValidation>;
