@@ -39,3 +39,8 @@ export const getUserPosts = async (
     .limit(limit);
   return posts;
 };
+
+export const findPostById = async (_id: string) => {
+  const post = await Post.findOne({ _id });
+  return post;
+};

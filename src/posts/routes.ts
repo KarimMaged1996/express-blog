@@ -8,11 +8,16 @@ import { validate } from "../utils/validation";
 import {
   createPostValidation,
   getPostsValidation,
-  getUserPostsParamsValidation,
+  objectIdParamValidation,
 } from "./schemas";
 
 // Import controllers
-import { createPost, postsList, userPostsList } from "./controllers";
+import {
+  createPost,
+  deletePost,
+  postsList,
+  userPostsList,
+} from "./controllers";
 
 // Import middleware
 import { authMiddleware } from "../middleware/AuthMiddleware";
@@ -33,8 +38,12 @@ postsRouter
   .route(ROUTES.POSTS.ROUTES.USER_LIST)
   .get(
     validate(getPostsValidation, "query"),
-    validate(getUserPostsParamsValidation, "params"),
+    validate(objectIdParamValidation, "params"),
     userPostsList
   );
+
+postsRouter
+  .route(ROUTES.POSTS.ROUTES.DELETE)
+  .delete(validate(objectIdParamValidation, "params"), deletePost);
 
 export default postsRouter;

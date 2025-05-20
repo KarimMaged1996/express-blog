@@ -1,8 +1,8 @@
-import { Document, Schema } from "mongoose";
+import { Document, Types } from "mongoose";
 import z from "zod";
 
 export interface IPost extends Document {
-  author: Schema.Types.ObjectId;
+  author: Types.ObjectId;
   title: string;
   body: string;
   createdAt: Date;
@@ -32,12 +32,10 @@ export const getPostsValidation = z.object({
 export type postsListRequestType = z.infer<typeof getPostsValidation>;
 
 // get user Posts params
-export const getUserPostsParamsValidation = z.object({
+export const objectIdParamValidation = z.object({
   id: z
     .string({ required_error: "the id param is required" })
     .regex(/^[0-9a-fA-F]{24}$/, { message: "Invalid id" }),
 });
 
-export type userPostsListParamsType = z.infer<
-  typeof getUserPostsParamsValidation
->;
+export type objectIdParamRequestType = z.infer<typeof objectIdParamValidation>;

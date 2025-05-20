@@ -4,12 +4,13 @@ import { Request, Response, NextFunction } from "express";
 import {
   createPostRequestType,
   postsListRequestType,
-  userPostsListParamsType,
+  objectIdParamRequestType,
 } from "./schemas";
 
 // Import utils
 import {
   createPostInstance,
+  findPostById,
   getPosts,
   getPostsCount,
   getUserPosts,
@@ -52,7 +53,7 @@ export const postsList = async (
 };
 
 export const userPostsList = async (
-  req: Request<userPostsListParamsType, {}, {}, postsListRequestType>,
+  req: Request<objectIdParamRequestType, {}, {}, postsListRequestType>,
   res: Response,
   next: NextFunction
 ) => {
@@ -66,6 +67,31 @@ export const userPostsList = async (
       page: Number(page),
     };
     res.json({ meta, posts });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const deletePost = async (
+  req: Request<objectIdParamRequestType>,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { _id } = req.user!;
+    const { id: postId } = req.params;
+    const post = await findPostById(postId);
+    if (!post) {
+      res.sendStatus(404);
+      return;
+    }
+    if (!post.author.equals(_id)) {
+      res.sendStatus(403);
+      return;
+    }
+
+    await post.deleteOne();
+    res.sendStatus(204);
   } catch (err) {
     next(err);
   }
