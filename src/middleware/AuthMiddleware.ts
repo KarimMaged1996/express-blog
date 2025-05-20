@@ -29,7 +29,7 @@ export const authMiddleware = async (
     }
 
     const user = (await getUserByMail(decoded.email)) as IUser;
-    (req as any).user = user;
+    req.user = user;
     next();
   } catch (err) {
     next(err);

@@ -13,7 +13,10 @@ import {
 } from "./schemas";
 
 // import controllers
-import { register, activateUser, login, refresh } from "./controllers";
+import { register, activateUser, login, refresh, logout } from "./controllers";
+
+// Import middlewares
+import { authMiddleware } from "../middleware/AuthMiddleware";
 
 const authRouter = Router();
 
@@ -32,5 +35,7 @@ authRouter
 authRouter
   .route(ROUTES.AUTH.ROUTES.REFRESH)
   .post(validate(refreshValidation), refresh);
+
+authRouter.route(ROUTES.AUTH.ROUTES.LOGOUT).post(authMiddleware, logout);
 
 export default authRouter;

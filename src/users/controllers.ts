@@ -158,3 +158,19 @@ export const refresh = async (
     next(err);
   }
 };
+
+export const logout = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { email } = req.user!;
+    const user = await getUserByMail(email);
+    user!.refreshToken = undefined;
+    await user!.save();
+    res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+};
