@@ -1,10 +1,20 @@
 import { Request, Response, NextFunction } from "express";
 
 // Import types
-import { createPostRequestType, postsListRequestType } from "./schemas";
+import {
+  createPostRequestType,
+  postsListRequestType,
+  userPostsListParamsType,
+} from "./schemas";
 
 // Import utils
-import { createPostInstance, getPosts, getPostsCount } from "./utils";
+import {
+  createPostInstance,
+  getPosts,
+  getPostsCount,
+  getUserPosts,
+  getUserPostsCount,
+} from "./utils";
 
 export const createPost = async (
   req: Request<{}, {}, createPostRequestType>,
@@ -32,6 +42,26 @@ export const postsList = async (
     const posts = await getPosts(Number(page), Number(limit));
     const meta = {
       total: await getPostsCount(),
+      limit: Number(limit),
+      page: Number(page),
+    };
+    res.json({ meta, posts });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const userPostsList = async (
+  req: Request<userPostsListParamsType, {}, {}, postsListRequestType>,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { page, limit } = req.query;
+    const { id } = req.params;
+    const posts = await getUserPosts(id, Number(page), Number(limit));
+    const meta = {
+      total: await getUserPostsCount(id),
       limit: Number(limit),
       page: Number(page),
     };

@@ -5,10 +5,14 @@ import ROUTES from "../app_routes";
 
 // Import validations
 import { validate } from "../utils/validation";
-import { createPostValidation, getPostsValidation } from "./schemas";
+import {
+  createPostValidation,
+  getPostsValidation,
+  getUserPostsParamsValidation,
+} from "./schemas";
 
 // Import controllers
-import { createPost, postsList } from "./controllers";
+import { createPost, postsList, userPostsList } from "./controllers";
 
 // Import middleware
 import { authMiddleware } from "../middleware/AuthMiddleware";
@@ -24,5 +28,13 @@ postsRouter
 postsRouter
   .route(ROUTES.POSTS.ROUTES.LIST)
   .get(validate(getPostsValidation, "query"), postsList);
+
+postsRouter
+  .route(ROUTES.POSTS.ROUTES.USER_LIST)
+  .get(
+    validate(getPostsValidation, "query"),
+    validate(getUserPostsParamsValidation, "params"),
+    userPostsList
+  );
 
 export default postsRouter;

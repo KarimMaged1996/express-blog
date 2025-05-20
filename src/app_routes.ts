@@ -14,6 +14,7 @@ const ROUTES = {
     ROUTES: {
       CREATE: "/create",
       LIST: "/list",
+      USER_LIST: "/:id/list",
     },
   },
 };

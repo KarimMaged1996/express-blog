@@ -23,11 +23,21 @@ export const createPostValidation = z.object({
 
 export type createPostRequestType = z.infer<typeof createPostValidation>;
 
-// get posts validation
-
+// get posts
 export const getPostsValidation = z.object({
   page: z.string({ required_error: "page is required" }),
   limit: z.string({ required_error: "limit is required" }),
 });
 
 export type postsListRequestType = z.infer<typeof getPostsValidation>;
+
+// get user Posts params
+export const getUserPostsParamsValidation = z.object({
+  id: z
+    .string({ required_error: "the id param is required" })
+    .regex(/^[0-9a-fA-F]{24}$/, { message: "Invalid id" }),
+});
+
+export type userPostsListParamsType = z.infer<
+  typeof getUserPostsParamsValidation
+>;

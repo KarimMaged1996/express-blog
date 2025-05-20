@@ -22,3 +22,20 @@ export const getPosts = async (page: number, limit: number) => {
     .limit(limit);
   return posts;
 };
+
+export const getUserPostsCount = async (author: string) => {
+  return await Post.countDocuments({ author });
+};
+
+export const getUserPosts = async (
+  author: string,
+  page: number,
+  limit: number
+) => {
+  const skip = (page - 1) * limit;
+  const posts = await Post.find({ author })
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(limit);
+  return posts;
+};
