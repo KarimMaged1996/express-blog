@@ -7,6 +7,7 @@ import ROUTES from "../app_routes";
 import { validate } from "../utils/validation";
 import {
   createPostValidation,
+  editPostValidation,
   getPostsValidation,
   objectIdParamValidation,
 } from "./schemas";
@@ -15,6 +16,7 @@ import {
 import {
   createPost,
   deletePost,
+  editPost,
   postsList,
   userPostsList,
 } from "./controllers";
@@ -45,5 +47,13 @@ postsRouter
 postsRouter
   .route(ROUTES.POSTS.ROUTES.DELETE)
   .delete(validate(objectIdParamValidation, "params"), deletePost);
+
+postsRouter
+  .route(ROUTES.POSTS.ROUTES.EDIT)
+  .patch(
+    validate(objectIdParamValidation, "params"),
+    validate(editPostValidation),
+    editPost
+  );
 
 export default postsRouter;

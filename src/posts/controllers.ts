@@ -5,6 +5,7 @@ import {
   createPostRequestType,
   postsListRequestType,
   objectIdParamRequestType,
+  editPostRequestType,
 } from "./schemas";
 
 // Import utils
@@ -92,6 +93,37 @@ export const deletePost = async (
 
     await post.deleteOne();
     res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const editPost = async (
+  req: Request<objectIdParamRequestType, {}, editPostRequestType>,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { title, body } = req.body;
+    const { id: postId } = req.params;
+    const { _id } = req.user!;
+    const post = await findPostById(postId);
+
+    if (!post) {
+      res.sendStatus(404);
+      return;
+    }
+
+    if (!post.author.equals(_id)) {
+      res.sendStatus(403);
+      return;
+    }
+
+    if (title) post.title = title;
+    if (body) post.body = body;
+
+    await post.save();
+    res.json(post);
   } catch (err) {
     next(err);
   }

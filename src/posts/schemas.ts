@@ -39,3 +39,19 @@ export const objectIdParamValidation = z.object({
 });
 
 export type objectIdParamRequestType = z.infer<typeof objectIdParamValidation>;
+
+// edit post
+export const editPostValidation = z.object({
+  title: z
+    .string()
+    .min(5, "The min title length is 5 characters")
+    .max(100, "The max title length is 100 characters")
+    .optional(),
+  body: z
+    .string()
+    .min(20, "The min body length is 20 characters")
+    .max(1000, "The max body length is 1000 characters")
+    .optional(),
+});
+
+export type editPostRequestType = z.infer<typeof editPostValidation>;

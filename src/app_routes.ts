@@ -16,6 +16,7 @@ const ROUTES = {
       LIST: "/list",
       USER_LIST: "/:id/list",
       DELETE: "/:id/delete",
+      EDIT: "/:id/edit",
     },
   },
 };
