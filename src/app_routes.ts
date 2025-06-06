@@ -7,6 +7,7 @@ const ROUTES = {
       LOGIN: "/login",
       LOGOUT: "/logout",
       REFRESH: "/refresh",
+      UPLOAD_AVATAR: "/upload-avatar",
     },
   },
   POSTS: {
@@ -18,6 +19,9 @@ const ROUTES = {
       DELETE: "/:id/delete",
       EDIT: "/:id/edit",
     },
+  },
+  UPLOADS: {
+    USER_PHOTO: "/user-photo",
   },
 };
 

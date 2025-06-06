@@ -10,5 +10,6 @@ declare namespace Express {
       isActive: boolean;
       refreshToken?: string;
     };
+    file?: any;
   }
 }

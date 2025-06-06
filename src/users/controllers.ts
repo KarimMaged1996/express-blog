@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from "express";
 import ejs from "ejs";
 import config from "../config";
 import ROUTES from "../app_routes";
+import { unlink } from "fs/promises";
+import path from "path";
 
 // Import schemas
 import {
@@ -26,6 +28,7 @@ import {
   generateRefreshToken,
   verifyRefreshToken,
 } from "../utils/jwt";
+import { PROFILE_UPLOAD_DIR } from "../utils/variables/paths";
 
 export const register = async (
   req: Request<{}, {}, registrationRequestType>,
@@ -170,6 +173,25 @@ export const logout = async (
     user!.refreshToken = undefined;
     await user!.save();
     res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const uploadProfileAvatar = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { email } = req.user!;
+    const user = await getUserByMail(email);
+    if (user!.photo) {
+      await unlink(path.join(PROFILE_UPLOAD_DIR, user!.photo));
+    }
+    user!.photo = req.file.filename;
+    user?.save();
+    res.status(201).json({ message: "profile image updated" });
   } catch (err) {
     next(err);
   }

@@ -13,10 +13,18 @@ import {
 } from "./schemas";
 
 // import controllers
-import { register, activateUser, login, refresh, logout } from "./controllers";
+import {
+  register,
+  activateUser,
+  login,
+  refresh,
+  logout,
+  uploadProfileAvatar,
+} from "./controllers";
 
 // Import middlewares
 import { authMiddleware } from "../middleware/AuthMiddleware";
+import { upload } from "../utils/multer";
 
 const authRouter = Router();
 
@@ -37,5 +45,9 @@ authRouter
   .post(validate(refreshValidation), refresh);
 
 authRouter.route(ROUTES.AUTH.ROUTES.LOGOUT).post(authMiddleware, logout);
+
+authRouter
+  .route(ROUTES.AUTH.ROUTES.UPLOAD_AVATAR)
+  .post(authMiddleware, upload.single("profileAvatar"), uploadProfileAvatar);
 
 export default authRouter;
