@@ -10,6 +10,7 @@ Includes user authentication, email verification, post management, and input val
 - CRUD for blog posts
 - Field-level validation with Zod
 - Basic role-based authorization
+- Image uploads using multer
 
 ## Getting Started
 
